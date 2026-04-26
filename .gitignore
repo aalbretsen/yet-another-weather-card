@@ -1,43 +1,115 @@
+# ─── Node ────────────────────────────────────────────────────────────────────
 node_modules/
-dist/
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+.pnp.*
+.yarn/
+package-lock.json.bak
 
-.DS_Store
-Thumbs.db
-*~
-.*.swp
-.*.swo
+# ─── Build artefacts ─────────────────────────────────────────────────────────
+# Declaration files and source maps are generated — do NOT commit them.
+# dist/yet-another-weather-card.js is intentionally committed (HACS needs it).
+dist/*.d.ts
+dist/*.d.ts.map
+dist/*.js.map
 
-.idea/
-*.iml
-*.ipr
+# ─── IntelliJ IDEA / WebStorm / GoLand / PhpStorm ───────────────────────────
+# Run configurations are NOT committed — IntelliJ reads package.json scripts
+# natively via the built-in npm tool window (View → Tool Windows → npm).
+# Only the files below are committed; they configure things IntelliJ cannot
+# auto-detect:
+#   .idea/modules.xml    ← module layout (excludes node_modules / dist)
+#   .idea/jsLinters.xml  ← ESLint + Prettier on-save settings
+#   .idea/typescript.xml ← use project-local TS compiler, not bundled one
+#   .idea/*.iml          ← module descriptor
+.idea/*
+!.idea/modules.xml
+!.idea/jsLinters.xml
+!.idea/typescript.xml
+!.idea/*.iml
+
+# IntelliJ local state — never commit these
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries/
+.idea/shelf/
+.idea/httpRequests/
+.idea/dataSources/
+.idea/.gitignore
 *.iws
-.vscode/
-.vs/
-*.code-workspace
-.history/
-.project
-.classpath
-.settings/
-.sublime-project
-.sublime-workspace
-nbproject/
-*.komodoproject
-.tern-project
 
-.cache/
-.parcel-cache/
-.eslintcache
-.stylelintcache
-*.tsbuildinfo
+# ─── Visual Studio Code ──────────────────────────────────────────────────────
+# npm scripts are shown natively in VSCode's npm scripts panel — no tasks.json
+# needed. Only editor and extension settings are committed.
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
 
+# ─── Vim / Neovim ────────────────────────────────────────────────────────────
+*.swp
+*.swo
+*~
+.netrwhist
+tags
+
+# ─── Emacs ───────────────────────────────────────────────────────────────────
+\#*\#
+.\#*
+*.elc
+auto-save-list
+tramp
+
+# ─── Sublime Text ────────────────────────────────────────────────────────────
+*.sublime-workspace
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# ─── macOS ───────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon$
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# ─── Windows ─────────────────────────────────────────────────────────────────
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# ─── Linux ───────────────────────────────────────────────────────────────────
+.directory
+.Trash-*
+.nfs*
+
+# ─── Misc tooling ────────────────────────────────────────────────────────────
+*.tgz
+*.log
 .env
-.env.local
-.env.*.local
-
-coverage/
-.nyc_output/
+.env.*
+!.env.example
