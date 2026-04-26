@@ -1,5 +1,9 @@
 # Yet Another Weather Card
 
+[![HACS][hacs-badge]][hacs-url]
+[![Release][release-badge]][release-url]
+[![License][license-badge]](LICENSE)
+
 A configurable weather card for Home Assistant. Three sections — header, grid, forecast. No charts, no chart libraries, no animation budget.
 
 ## Why another one
@@ -140,13 +144,33 @@ For finer control via card-mod or themes, the card exposes:
 ## Development
 
 ```bash
+# Install dependencies
 npm install
-npm run build         # produce dist/yet-another-weather-card.js
-npm run watch         # rebuild on save during development
-npm run format        # prettier
-npm run lint          # eslint
+
+# Development build with source maps + watch
+npm run watch
+
+# Production build (minified, no source maps)
+npm run build:prod
+
+# Type-check only
+npm run typecheck
+
+# Lint
+npm run lint
+
+# Format
+npm run format
 ```
+
+After `npm run build:prod`, commit `dist/yet-another-weather-card.js` to the repository so HACS can install it without requiring a build step.
 
 ## License
 
 MIT.
+
+[hacs-badge]: https://img.shields.io/badge/HACS-Custom-orange.svg
+[hacs-url]: https://hacs.xyz
+[release-badge]: https://img.shields.io/github/v/release/aalbretsen/yet-another-weather-card
+[release-url]: https://github.com/aalbretsen/yet-another-weather-card/releases
+[license-badge]: https://img.shields.io/github/license/aalbretsen/yet-another-weather-card
