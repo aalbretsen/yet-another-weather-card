@@ -1,0 +1,46 @@
+{
+  "name": "yet-another-weather-card",
+  "version": "0.1.0",
+  "description": "A configurable weather card for Home Assistant — three section layout, i18n, no charts.",
+  "main": "dist/yet-another-weather-card.js",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "lint": "eslint \"src/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.{ts,json}\" \"*.{json,md,mjs}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,json}\" \"*.{json,md,mjs}\""
+  },
+  "keywords": [
+    "home-assistant",
+    "lovelace",
+    "weather",
+    "custom-card",
+    "hacs"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/yet-another-weather-card.git"
+  },
+  "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.3",
+    "rollup": "^4.21.0",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "lit": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
