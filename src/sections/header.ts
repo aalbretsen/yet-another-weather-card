@@ -36,51 +36,56 @@ export function renderHeader(
 
   return html`
     <div class="header">
-      <div class="header-icon">${getConditionIcon(condition, iconStyle, now, sun)}</div>
-
-      <div class="header-info">
-        <div class="header-location">${name}</div>
-        ${config.show_condition
-          ? html`<div class="header-condition">${conditionLabel}</div>`
-          : nothing}
+      <div class="header-left">
+        <div class="header-icon">${getConditionIcon(condition, iconStyle, now, sun)}</div>
+        <div class="header-info">
+          <div class="header-location">${name}</div>
+          ${config.show_condition
+            ? html`<div class="header-condition">${conditionLabel}</div>`
+            : nothing}
+        </div>
       </div>
 
-      ${config.show_wind
-        ? html`
-            <div class="header-block">
-              <div class="header-big">
-                ${formatCompact(windSpeed)}<span class="header-unit"> ${windUnit}</span>
+      <div class="header-right">
+        ${config.show_wind
+          ? html`
+              <div class="header-block">
+                <div class="header-big">
+                  ${formatCompact(windSpeed)}<span class="header-unit"> ${windUnit}</span>
+                </div>
+                <div class="header-cap">
+                  ${windGust !== undefined
+                    ? html`${localize.caption("gust")} ${formatCompact(windGust)} ${windUnit}`
+                    : nothing}
+                </div>
               </div>
-              <div class="header-cap">
-                ${windGust !== undefined
-                  ? html`${localize.caption("gust")} ${formatCompact(windGust)} ${windUnit}`
-                  : nothing}
+            `
+          : nothing}
+        ${config.show_temperature
+          ? html`
+              <div class="header-block">
+                <div class="header-big">
+                  ${formatCompact(temperature)}<span class="header-unit-deg"
+                    >°${tempUnitLetter}</span
+                  >
+                </div>
+                <div class="header-cap">
+                  ${apparent !== undefined
+                    ? html`${localize.caption("feels_like")} ${formatCompact(apparent)}°`
+                    : nothing}
+                </div>
               </div>
-            </div>
-          `
-        : nothing}
-      ${config.show_temperature
-        ? html`
-            <div class="header-block">
-              <div class="header-big">
-                ${formatCompact(temperature)}<span class="header-unit-deg">°${tempUnitLetter}</span>
+            `
+          : nothing}
+        ${config.show_clock
+          ? html`
+              <div class="header-block">
+                <div class="header-big">${formatTime(now, hass)}</div>
+                <div class="header-cap">${formatDate(now, hass)}</div>
               </div>
-              <div class="header-cap">
-                ${apparent !== undefined
-                  ? html`${localize.caption("feels_like")} ${formatCompact(apparent)}°`
-                  : nothing}
-              </div>
-            </div>
-          `
-        : nothing}
-      ${config.show_clock
-        ? html`
-            <div class="header-block">
-              <div class="header-big">${formatTime(now, hass)}</div>
-              <div class="header-cap">${formatDate(now, hass)}</div>
-            </div>
-          `
-        : nothing}
+            `
+          : nothing}
+      </div>
     </div>
   `;
 }

@@ -19,18 +19,41 @@ export const cardStyles = css`
   }
 
   .header {
-    display: grid;
-    grid-template-columns: auto 1fr;
+    position: relative;
+    min-height: 48px;
+  }
+
+  .header-left,
+  .header-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
     align-items: center;
-    column-gap: 14px;
-    padding: 0 4px;
+    gap: 14px;
   }
 
   @media (min-width: 480px) {
-    .header {
-      grid-template-columns: auto 1fr auto auto auto;
-      column-gap: 18px;
+    .header-left,
+    .header-right {
+      gap: 18px;
     }
+  }
+
+  .header-left {
+    left: 4px;
+    z-index: 2;
+    background: var(
+      --ha-card-background,
+      var(--card-background-color, var(--primary-background-color, #fff))
+    );
+    padding-right: 12px;
+    max-width: calc(100% - 8px);
+  }
+
+  .header-right {
+    right: 4px;
+    z-index: 1;
   }
 
   .header-icon {
@@ -89,6 +112,12 @@ export const cardStyles = css`
     margin-top: 4px;
     min-height: 1em;
     letter-spacing: 0.2px;
+  }
+
+  .header-condition {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .header-unit,
