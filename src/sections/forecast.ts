@@ -78,7 +78,7 @@ function renderForecastRow(
 
   let displayed: string;
   if (row === "precipitation") {
-    displayed = `${formatNumber(value, hass, 1)} mm`;
+    displayed = `${formatNumber(value, hass, 1)}`;
   } else if (row === "precipitation_probability") {
     displayed = `${formatNumber(Math.round(value), hass)} %`;
   } else if (row === "temperature" || row === "apparent_temperature" || row === "dew_point") {

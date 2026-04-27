@@ -236,7 +236,7 @@ const e="yet-another-weather-card",t="0.1.0",i=["temperature","apparent_temperat
     </g>
   </svg>`}</span>
       <span>${Ce(s,i)}</span>
-    </div>`}var r;let n;n="precipitation"===e?`${Ce(s,i,1)} mm`:"precipitation_probability"===e?`${Ce(Math.round(s),i)} %`:"temperature"===e||"apparent_temperature"===e||"dew_point"===e?`${Math.round(s)}°`:"humidity"===e||"cloud_coverage"===e?`${Math.round(s)} %`:String(s);return q`<div class="forecast-row">
+    </div>`}var r;let n;n="precipitation"===e?`${Ce(s,i,1)}`:"precipitation_probability"===e?`${Ce(Math.round(s),i)} %`:"temperature"===e||"apparent_temperature"===e||"dew_point"===e?`${Math.round(s)}°`:"humidity"===e||"cloud_coverage"===e?`${Math.round(s)} %`:String(s);return q`<div class="forecast-row">
     <span>${mt(e)}</span>
     <span>${n}</span>
   </div>`}(t,e,r))}
