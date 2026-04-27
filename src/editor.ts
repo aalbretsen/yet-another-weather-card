@@ -403,14 +403,7 @@ export class YawcEditor extends LitElement {
   private renderHeader(localize: Localizer): TemplateResult {
     const h = this.config.header;
     const t = (
-      key:
-        | "show_location"
-        | "show_condition"
-        | "show_feels_like"
-        | "show_wind_block"
-        | "show_wind_gust"
-        | "show_time_block"
-        | "show_date",
+      key: "show_condition" | "show_temperature" | "show_wind" | "show_clock",
       labelKey: Parameters<typeof localize.editor>[0],
     ) =>
       this.toggleRow(localize.editor(labelKey), h[key], (v) =>
@@ -418,11 +411,22 @@ export class YawcEditor extends LitElement {
       );
 
     return html`
+      <div class="field">
+        <span class="field-label">${localize.editor("name")}</span>
+        <input
+          type="text"
+          .value=${h.name ?? ""}
+          placeholder=${localize.editor("name_placeholder")}
+          @change=${(e: Event) => {
+            const v = (e.target as HTMLInputElement).value.trim();
+            this.updateNested("header", { name: v ? v : undefined });
+          }}
+        />
+        <span class="field-help">${localize.editor("name_help")}</span>
+      </div>
       <div class="toggles">
-        ${t("show_location", "show_location")} ${t("show_condition", "show_condition")}
-        ${t("show_feels_like", "show_feels_like")} ${t("show_wind_block", "show_wind_block")}
-        ${t("show_wind_gust", "show_wind_gust")} ${t("show_time_block", "show_time_block")}
-        ${t("show_date", "show_date")}
+        ${t("show_condition", "show_condition")} ${t("show_temperature", "show_temperature")}
+        ${t("show_wind", "show_wind")} ${t("show_clock", "show_clock")}
       </div>
     `;
   }

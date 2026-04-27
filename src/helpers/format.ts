@@ -1,5 +1,14 @@
 import type { HomeAssistant } from "./hass.js";
 
+export function formatCompact(value: number | string | undefined): string {
+  if (value === undefined || value === null || value === "") return "—";
+  const n = typeof value === "number" ? value : Number(value);
+  if (Number.isNaN(n)) return String(value);
+  if (Number.isInteger(n)) return String(n);
+  if (Math.abs(n) > 9.9) return String(Math.round(n));
+  return (Math.round(n * 10) / 10).toString();
+}
+
 export function formatNumber(
   value: number | string | undefined,
   hass: HomeAssistant,

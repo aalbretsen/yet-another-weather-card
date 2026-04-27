@@ -119,6 +119,7 @@ export class YetAnotherWeatherCard extends LitElement {
     const header = renderHeader(
       this.hass,
       weatherEntity,
+      sunEntity,
       this.config.header,
       iconStyle,
       localize,
@@ -128,6 +129,7 @@ export class YetAnotherWeatherCard extends LitElement {
     const grid = renderGrid(this.hass, weatherEntity, sunEntity, this.config.grid, localize);
     const forecast = renderForecast(
       this.hass,
+      sunEntity,
       this.forecast,
       this.config.forecast,
       iconStyle,

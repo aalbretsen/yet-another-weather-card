@@ -5,13 +5,11 @@ export type GridStyle = "full" | "compact";
 export type ForecastType = "daily" | "hourly" | "twice_daily";
 
 export interface HeaderConfig {
-  show_location: boolean;
+  name?: string;
   show_condition: boolean;
-  show_feels_like: boolean;
-  show_wind_block: boolean;
-  show_wind_gust: boolean;
-  show_time_block: boolean;
-  show_date: boolean;
+  show_temperature: boolean;
+  show_wind: boolean;
+  show_clock: boolean;
 }
 
 export interface GridItemStandard {
@@ -55,13 +53,10 @@ export interface YawcConfig {
 }
 
 export const DEFAULT_HEADER: HeaderConfig = {
-  show_location: true,
   show_condition: true,
-  show_feels_like: true,
-  show_wind_block: false,
-  show_wind_gust: true,
-  show_time_block: true,
-  show_date: true,
+  show_temperature: false,
+  show_wind: false,
+  show_clock: true,
 };
 
 export const DEFAULT_GRID: GridConfig = {

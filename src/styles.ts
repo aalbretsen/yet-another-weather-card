@@ -14,7 +14,7 @@ export const cardStyles = css`
   }
 
   ha-card {
-    padding: 16px;
+    padding: 12px;
     color: var(--yawc-text-primary);
   }
 
@@ -22,19 +22,19 @@ export const cardStyles = css`
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 18px;
+    gap: 12px;
   }
 
   @media (min-width: 480px) {
     .header {
       grid-template-columns: auto 1fr auto auto auto;
-      gap: 24px;
+      gap: 14px;
     }
   }
 
   .header-icon {
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -51,9 +51,10 @@ export const cardStyles = css`
   }
 
   .header-location {
-    font-size: 14px;
+    font-size: 22px;
     font-weight: 500;
-    line-height: 1.2;
+    line-height: 1.05;
+    letter-spacing: -0.3px;
     color: var(--yawc-text-primary);
     white-space: nowrap;
     overflow: hidden;
@@ -61,17 +62,21 @@ export const cardStyles = css`
   }
 
   .header-condition {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--yawc-text-secondary);
-    margin-top: 3px;
+    margin-top: 4px;
   }
 
   .header-block {
     text-align: right;
+    display: grid;
+    grid-template-rows: auto 18px;
+    align-content: start;
+    min-height: 44px;
   }
 
   .header-big {
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 500;
     line-height: 1;
     letter-spacing: -0.5px;
@@ -82,28 +87,31 @@ export const cardStyles = css`
 
   .header-unit,
   .header-unit-deg {
-    font-size: 14px;
     font-weight: 400;
     color: var(--yawc-text-secondary);
     letter-spacing: 0;
   }
 
+  .header-unit {
+    font-size: 12px;
+  }
+
   .header-unit-deg {
-    font-size: 26px;
+    font-size: 20px;
     line-height: 1;
     margin-left: 1px;
     vertical-align: top;
   }
 
   .header-cap {
-    font-size: 11px;
+    font-size: 13px;
     color: var(--yawc-text-secondary);
-    margin-top: 5px;
     letter-spacing: 0.2px;
+    align-self: end;
   }
 
   .section-divider {
-    margin: 14px 0;
+    margin: 10px 0;
     border-top: 1px solid var(--yawc-divider);
   }
 
@@ -122,12 +130,12 @@ export const cardStyles = css`
 
   .grid-compact.labels-on {
     grid-template-columns: repeat(auto-fit, minmax(var(--yawc-cell-min-compact), 1fr));
-    gap: 14px 8px;
+    gap: 4px 8px;
   }
 
   .grid-compact.labels-off {
     grid-template-columns: repeat(auto-fit, minmax(var(--yawc-cell-min-compact-tight), 1fr));
-    gap: 12px 8px;
+    gap: 4px 8px;
   }
 
   .grid-cell {
@@ -152,7 +160,7 @@ export const cardStyles = css`
     justify-content: flex-start;
     text-align: left;
     gap: 6px;
-    padding: 4px 2px;
+    padding: 2px 2px;
   }
 
   .grid-icon {

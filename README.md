@@ -54,30 +54,41 @@ entity: weather.home
 
 ## Configuration
 
-| Option       | Type                   | Notes                                   |
-| ------------ | ---------------------- | --------------------------------------- |
-| `entity`     | string                 | A `weather.*` entity.                   |
-| `sun_entity` | string                 | Used for sunrise / sunset.              |
-| `language`   | `auto` \| `en` \| `nb` | `auto` follows Home Assistant's locale. |
-| `icon_style` | `line` \| `fill`       | Outline icons or filled.                |
-| `header`     | object                 | Top section toggles.                    |
-| `grid`       | object                 | Mid section toggles and items.          |
-| `forecast`   | object                 | Bottom section toggles and rows.        |
+| Option       | Type                   | Notes                                                                |
+| ------------ | ---------------------- | -------------------------------------------------------------------- |
+| `entity`     | string                 | A `weather.*` entity.                                                |
+| `sun_entity` | string                 | Used for sunrise / sunset, and for remapping daytime icons to night. |
+| `language`   | `auto` \| `en` \| `nb` | `auto` follows Home Assistant's locale.                              |
+| `icon_style` | `line` \| `fill`       | Outline icons or filled.                                             |
+| `header`     | object                 | Top section toggles.                                                 |
+| `grid`       | object                 | Mid section toggles and items.                                       |
+| `forecast`   | object                 | Bottom section toggles and rows.                                     |
 
 ### Header
 
 ```yaml
 header:
-  show_location: true
-  show_condition: true
-  show_feels_like: true
-  show_wind_block: false
-  show_wind_gust: true
-  show_time_block: true
-  show_date: true
+  name: My place # optional override
+  show_condition: true # default true
+  show_temperature: false # default false — temp + feels-like caption pair
+  show_wind: false # default false — wind speed + gust caption pair
+  show_clock: true # default true — time + date caption pair
 ```
 
-The temperature block is always on. Wind, time and date are independent toggles.
+The location name is always shown. By default it's the weather entity's friendly
+name; set `name` to override it. The condition, temperature, wind and clock
+blocks are individually toggleable. Each "block" is a pair: the big primary
+value plus a small caption underneath (feels-like / gust / date), shown
+automatically when the data is available.
+
+### Night icons
+
+Some weather integrations only emit daytime conditions like `sunny` or
+`partlycloudy` — they don't switch to `clear-night` or `partly-cloudy-night`
+after dark. If you have the standard **Sun integration** enabled in Home
+Assistant, this card uses its `next_rising` / `next_setting` attributes to
+detect when each forecast step is at night and renders the moon variant of the
+icon. Without the Sun integration, daytime icons pass through unchanged.
 
 ### Grid
 
