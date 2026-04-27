@@ -280,9 +280,14 @@ export class YawcEditor extends LitElement {
     .row-toggle {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 4px;
       padding: 4px 0;
       font-size: 13px;
+    }
+
+    .row-toggle > span:first-child {
+      flex: 1;
+      min-width: 0;
     }
   `;
 
@@ -778,22 +783,59 @@ export class YawcEditor extends LitElement {
         <span class="field-label">${localize.editor("forecast_rows")}</span>
       </div>
 
-      ${FORECAST_ROW_VALUES.map((row) => {
-        const on = f.rows.includes(row);
-        return html`
+      ${f.rows.map(
+        (row, idx) => html`
           <div class="row-toggle">
             <span>${localize.label(row)}</span>
+            <button
+              class="icon-btn"
+              ?disabled=${idx === 0}
+              @click=${() => this.moveForecastRow(idx, -1)}
+              title="Move up"
+            >
+              ▲
+            </button>
+            <button
+              class="icon-btn"
+              ?disabled=${idx === f.rows.length - 1}
+              @click=${() => this.moveForecastRow(idx, 1)}
+              title="Move down"
+            >
+              ▼
+            </button>
             <span
-              class="switch ${on ? "on" : ""}"
+              class="switch on"
               @click=${() => {
-                const rows = on ? f.rows.filter((r) => r !== row) : [...f.rows, row];
+                const rows = f.rows.filter((r) => r !== row);
                 this.updateNested("forecast", { rows });
               }}
             ></span>
           </div>
-        `;
-      })}
+        `,
+      )}
+      ${FORECAST_ROW_VALUES.filter((row) => !f.rows.includes(row)).map(
+        (row) => html`
+          <div class="row-toggle">
+            <span>${localize.label(row)}</span>
+            <span
+              class="switch off"
+              @click=${() => {
+                const rows = [...f.rows, row];
+                this.updateNested("forecast", { rows });
+              }}
+            ></span>
+          </div>
+        `,
+      )}
     `;
+  }
+
+  private moveForecastRow(idx: number, delta: number): void {
+    const rows = [...this.config.forecast.rows];
+    const target = idx + delta;
+    if (target < 0 || target >= rows.length) return;
+    [rows[idx], rows[target]] = [rows[target], rows[idx]];
+    this.updateNested("forecast", { rows });
   }
 
   private renderAppearance(localize: Localizer): TemplateResult {

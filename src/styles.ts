@@ -14,7 +14,7 @@ export const cardStyles = css`
   }
 
   ha-card {
-    padding: 12px;
+    padding: 12px 12px 6px;
     color: var(--yawc-text-primary);
   }
 
@@ -22,13 +22,14 @@ export const cardStyles = css`
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 12px;
+    column-gap: 14px;
+    padding: 0 4px;
   }
 
   @media (min-width: 480px) {
     .header {
       grid-template-columns: auto 1fr auto auto auto;
-      gap: 14px;
+      column-gap: 18px;
     }
   }
 
@@ -46,43 +47,48 @@ export const cardStyles = css`
     height: 100%;
   }
 
-  .header-info {
+  .header-info,
+  .header-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 44px;
     min-width: 0;
   }
 
-  .header-location {
+  .header-block {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .header-location,
+  .header-big {
     font-size: 22px;
     font-weight: 500;
-    line-height: 1.05;
+    line-height: 1.1;
     letter-spacing: -0.3px;
     color: var(--yawc-text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .header-location {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .header-condition {
+  .header-big {
+    white-space: nowrap;
+  }
+
+  .header-condition,
+  .header-cap {
     font-size: 13px;
+    line-height: 1.1;
     color: var(--yawc-text-secondary);
     margin-top: 4px;
-  }
-
-  .header-block {
-    text-align: right;
-    display: grid;
-    grid-template-rows: auto 18px;
-    align-content: start;
-    min-height: 44px;
-  }
-
-  .header-big {
-    font-size: 22px;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: -0.5px;
-    font-variant-numeric: tabular-nums;
-    color: var(--yawc-text-primary);
-    white-space: nowrap;
+    min-height: 1em;
+    letter-spacing: 0.2px;
   }
 
   .header-unit,
@@ -103,13 +109,6 @@ export const cardStyles = css`
     vertical-align: top;
   }
 
-  .header-cap {
-    font-size: 13px;
-    color: var(--yawc-text-secondary);
-    letter-spacing: 0.2px;
-    align-self: end;
-  }
-
   .section-divider {
     margin: 10px 0;
     border-top: 1px solid var(--yawc-divider);
@@ -118,6 +117,7 @@ export const cardStyles = css`
   .grid {
     display: grid;
     gap: 8px;
+    padding: 0 6px;
   }
 
   .grid-full.labels-on {
