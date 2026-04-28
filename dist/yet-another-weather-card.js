@@ -171,12 +171,12 @@ const e="yet-another-weather-card",t="0.1.0",i=["temperature","apparent_temperat
     <circle cx="16" cy="16" r="9"/>
     <line x1="16" y1="11" x2="16" y2="17"/>
     <circle cx="16" cy="20" r="1.4" fill="currentColor"/>
-  </svg>`,ft={sunny:"clear-night",clear:"clear-night",partlycloudy:"partly-cloudy-night","partly-cloudy":"partly-cloudy-night"};function gt(e,t,i,s){if(!e)return ut;const r="fill"===t?ht:Ke,n=function(e,t,i){if(!t||!i)return e;const s=ft[e];return s&&function(e,t){const i=t.attributes?.next_rising,s=t.attributes?.next_setting;if(!i||!s)return!1;const r=new Date(i),n=new Date(s);if(Number.isNaN(r.getTime())||Number.isNaN(n.getTime()))return!1;const o=new Date(e),a=new Date(o);a.setHours(r.getHours(),r.getMinutes(),0,0);const l=new Date(o);return l.setHours(n.getHours(),n.getMinutes(),0,0),o<a||o>=l}(t,i)?s:e}(e,i,s);return r[n]??r[e]??ut}function yt(e,t,i,s,r,n,o){if(!t)return q`<div class="header"><div class="missing">Weather entity not found</div></div>`;const a=t.state,l=e.localize?.(`component.weather.entity_component._.state.${a}`)||a,c=Me(t,"temperature"),d=c&&c.length>1?c.slice(-1):"",p=Me(t,"wind_speed")??"m/s",h=t.attributes?.temperature,u=t.attributes?.apparent_temperature,f=t.attributes?.wind_speed,g=t.attributes?.wind_gust_speed,y=s.name??t.attributes?.friendly_name??t.entity_id;return q`
+  </svg>`,ft={sunny:"clear-night",clear:"clear-night",partlycloudy:"partly-cloudy-night","partly-cloudy":"partly-cloudy-night"};function gt(e,t,i,s){if(!e)return ut;const r="fill"===t?ht:Ke,n=function(e,t,i){if(!t||!i)return e;const s=ft[e];return s&&function(e,t){const i=t.attributes?.next_rising,s=t.attributes?.next_setting;if(!i||!s)return!1;const r=new Date(i),n=new Date(s);if(Number.isNaN(r.getTime())||Number.isNaN(n.getTime()))return!1;const o=new Date(e),a=new Date(o);a.setHours(r.getHours(),r.getMinutes(),0,0);const l=new Date(o);return l.setHours(n.getHours(),n.getMinutes(),0,0),o<a||o>=l}(t,i)?s:e}(e,i,s);return r[n]??r[e]??ut}function yt(e,t,i,s,r,n,o){if(!t)return q`<div class="header"><div class="missing">Weather entity not found</div></div>`;const a=t.state,l=e.localize?.(`component.weather.entity_component._.state.${a}`)||a,c=Me(t,"wind_speed")??"m/s",d=t.attributes?.temperature,p=t.attributes?.apparent_temperature,h=t.attributes?.wind_speed,u=t.attributes?.wind_gust_speed,f=s.name??t.attributes?.friendly_name??t.entity_id;return q`
     <div class="header">
       <div class="header-left">
         <div class="header-icon">${gt(a,r,o,i)}</div>
         <div class="header-info">
-          <div class="header-location">${y}</div>
+          <div class="header-location">${f}</div>
           ${s.show_condition?q`<div class="header-condition">${l}</div>`:Y}
         </div>
       </div>
@@ -185,29 +185,27 @@ const e="yet-another-weather-card",t="0.1.0",i=["temperature","apparent_temperat
         ${s.show_wind?q`
               <div class="header-block">
                 <div class="header-big">
-                  ${Ne(f)}<span class="header-unit"> ${p}</span>
+                  ${Ne(h)}<span class="header-unit"> ${c}</span>
                 </div>
                 <div class="header-cap">
-                  ${void 0!==g?q`${n.caption("gust")} ${Ne(g)} ${p}`:Y}
+                  ${void 0!==u?q`${n.caption("gust")} ${Ne(u)} ${c}`:Y}
                 </div>
               </div>
             `:Y}
         ${s.show_temperature?q`
               <div class="header-block">
                 <div class="header-big">
-                  ${Ne(h)}<span class="header-unit-deg"
-                    >°${d}</span
-                  >
+                  ${Ne(d)}<span class="header-unit-deg">°</span>
                 </div>
                 <div class="header-cap">
-                  ${void 0!==u?q`${n.caption("feels_like")} ${Ne(u)}°`:Y}
+                  ${void 0!==p?q`${n.caption("feels_like")} ${Ne(p)}°`:Y}
                 </div>
               </div>
             `:Y}
         ${s.show_clock?q`
               <div class="header-block">
                 <div class="header-big">${Pe(o,e)}</div>
-                <div class="header-cap">${function(e,t){const i=t.locale?.language??t.language??"en";return new Intl.DateTimeFormat(i,{weekday:"short",day:"numeric",month:"short",year:"numeric"}).format(e)}(o,e)}</div>
+                <div class="header-cap">${function(e,t){const i=t.locale?.language??t.language??"en";return new Intl.DateTimeFormat(i,{weekday:"short",day:"numeric",month:"short"}).format(e)}(o,e)}</div>
               </div>
             `:Y}
       </div>
@@ -241,10 +239,10 @@ const e="yet-another-weather-card",t="0.1.0",i=["temperature","apparent_temperat
       <span>${Ne(i)}</span>
     </div>`}var s;if("temperature"===e||"apparent_temperature"===e||"dew_point"===e)return q`<div class="forecast-row">
       <span>${_t(e)}</span>
-      <span>${Ne(i)}°</span>
+      <span>${Ne(i)}</span>
     </div>`;if("humidity"===e||"cloud_coverage"===e||"precipitation_probability"===e)return q`<div class="forecast-row">
       <span>${_t(e)}</span>
-      <span>${Ne(i)} %</span>
+      <span>${Ne(i)}%</span>
     </div>`;return q`<div class="forecast-row">
     <span>${_t(e)}</span>
     <span>${Ne(i)}</span>
@@ -288,7 +286,7 @@ const e="yet-another-weather-card",t="0.1.0",i=["temperature","apparent_temperat
   @media (min-width: 480px) {
     .header-left,
     .header-right {
-      gap: 18px;
+      gap: 12px;
     }
   }
 
@@ -338,7 +336,7 @@ const e="yet-another-weather-card",t="0.1.0",i=["temperature","apparent_temperat
 
   .header-location,
   .header-big {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
     line-height: 1.1;
     letter-spacing: -0.3px;
@@ -358,7 +356,7 @@ const e="yet-another-weather-card",t="0.1.0",i=["temperature","apparent_temperat
 
   .header-condition,
   .header-cap {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.1;
     color: var(--yawc-text-secondary);
     margin-top: 4px;

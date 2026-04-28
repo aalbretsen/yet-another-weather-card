@@ -73,14 +73,14 @@ function renderForecastRow(
   if (row === "temperature" || row === "apparent_temperature" || row === "dew_point") {
     return html`<div class="forecast-row">
       <span>${getUiIcon(row)}</span>
-      <span>${formatCompact(value)}°</span>
+      <span>${formatCompact(value)}</span>
     </div>`;
   }
 
   if (row === "humidity" || row === "cloud_coverage" || row === "precipitation_probability") {
     return html`<div class="forecast-row">
       <span>${getUiIcon(row)}</span>
-      <span>${formatCompact(value)} %</span>
+      <span>${formatCompact(value)}%</span>
     </div>`;
   }
 

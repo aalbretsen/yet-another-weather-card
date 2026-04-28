@@ -36,7 +36,7 @@ export const cardStyles = css`
   @media (min-width: 480px) {
     .header-left,
     .header-right {
-      gap: 18px;
+      gap: 12px;
     }
   }
 
@@ -86,7 +86,7 @@ export const cardStyles = css`
 
   .header-location,
   .header-big {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
     line-height: 1.1;
     letter-spacing: -0.3px;
@@ -106,7 +106,7 @@ export const cardStyles = css`
 
   .header-condition,
   .header-cap {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.1;
     color: var(--yawc-text-secondary);
     margin-top: 4px;

@@ -1,7 +1,7 @@
 import type { HomeAssistant } from "./hass.js";
 
 export function formatCompact(value: number | string | undefined): string {
-  if (value === undefined || value === null || value === "") return "—";
+  if (value == undefined || value === "") return "—";
   const n = typeof value === "number" ? value : Number(value);
   if (Number.isNaN(n)) return String(value);
   if (Number.isInteger(n)) return String(n);
@@ -14,7 +14,7 @@ export function formatNumber(
   hass: HomeAssistant,
   decimals?: number,
 ): string {
-  if (value === undefined || value === null || value === "") return "—";
+  if (value == undefined || value === "") return "—";
   const n = typeof value === "number" ? value : Number(value);
   if (Number.isNaN(n)) return String(value);
   const lang = hass.locale?.language ?? hass.language ?? "en";
@@ -25,7 +25,7 @@ export function formatNumber(
 }
 
 export function formatTemperature(value: number | string | undefined, hass: HomeAssistant): string {
-  if (value === undefined || value === null || value === "") return "—";
+  if (value == undefined || value === "") return "—";
   const n = typeof value === "number" ? value : Number(value);
   if (Number.isNaN(n)) return String(value);
   return `${formatNumber(Math.round(n), hass)}°`;
@@ -46,8 +46,7 @@ export function formatDate(date: Date, hass: HomeAssistant): string {
   return new Intl.DateTimeFormat(lang, {
     weekday: "short",
     day: "numeric",
-    month: "short",
-    year: "numeric",
+    month: "short"
   }).format(date);
 }
 
@@ -67,14 +66,14 @@ export function formatHour(date: Date, hass: HomeAssistant): string {
 }
 
 export function bearingToCompass(bearing: number | undefined): string {
-  if (bearing === undefined || bearing === null || Number.isNaN(bearing)) return "—";
+  if (bearing == undefined || Number.isNaN(bearing)) return "—";
   const dirs = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
   const index = Math.round((bearing % 360) / 45) % 8;
   return dirs[index];
 }
 
 export function normalizeBearing(value: any): number | undefined {
-  if (value === undefined || value === null) return undefined;
+  if (value == undefined) return undefined;
   if (typeof value === "number") return value;
   const upper = String(value).toUpperCase();
   const map: Record<string, number> = {

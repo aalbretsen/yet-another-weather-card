@@ -23,8 +23,6 @@ export function renderHeader(
   const conditionLabel =
     hass.localize?.(`component.weather.entity_component._.state.${condition}`) || condition;
 
-  const tempUnit = getAttributeUnit(weather, "temperature");
-  const tempUnitLetter = tempUnit && tempUnit.length > 1 ? tempUnit.slice(-1) : "";
   const windUnit = getAttributeUnit(weather, "wind_speed") ?? "m/s";
 
   const temperature = weather.attributes?.temperature;
@@ -65,9 +63,7 @@ export function renderHeader(
           ? html`
               <div class="header-block">
                 <div class="header-big">
-                  ${formatCompact(temperature)}<span class="header-unit-deg"
-                    >°${tempUnitLetter}</span
-                  >
+                  ${formatCompact(temperature)}<span class="header-unit-deg">°</span>
                 </div>
                 <div class="header-cap">
                   ${apparent !== undefined
