@@ -36,7 +36,7 @@ export const cardStyles = css`
   @media (min-width: 480px) {
     .header-left,
     .header-right {
-      gap: 12px;
+      gap: 18px;
     }
   }
 

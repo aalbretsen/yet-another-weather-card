@@ -286,7 +286,7 @@ const e="yet-another-weather-card",t="0.1.0",i=["temperature","apparent_temperat
   @media (min-width: 480px) {
     .header-left,
     .header-right {
-      gap: 12px;
+      gap: 18px;
     }
   }
 
