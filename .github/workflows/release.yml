@@ -1,28 +1,36 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - "v*"
+  release:
+    types: [published]
+
+permissions:
+  contents: write
 
 jobs:
-  release:
+  build-and-release:
+    name: Build and attach release asset
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: npm
+          node-version: "22"
+          cache: "npm"
 
-      - run: npm ci
-      - run: npm run build
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Upload bundle to release
+      - name: Build (production)
+        run: npm run build:prod
+
+      - name: Upload dist/heating-power-card.js as release asset
         uses: softprops/action-gh-release@v2
         with:
           files: dist/yet-another-weather-card.js
-          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
