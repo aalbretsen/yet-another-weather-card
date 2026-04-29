@@ -1,6 +1,7 @@
 import { html, type TemplateResult, nothing } from "lit";
 import type { HassEntity, HomeAssistant } from "../helpers/hass.js";
 import type { HeaderConfig, IconStyle } from "../config.js";
+import type { ForecastStep } from "../helpers/weather.js";
 import { Localizer } from "../localize.js";
 import { formatCompact, formatDate, formatTime } from "../helpers/format.js";
 import { getConditionIcon } from "../icons/conditions.js";
@@ -10,6 +11,8 @@ export function renderHeader(
   hass: HomeAssistant,
   weather: HassEntity | undefined,
   sun: HassEntity | undefined,
+  dailyForecast: ForecastStep[],
+  hourlyForecast: ForecastStep[],
   config: HeaderConfig,
   iconStyle: IconStyle,
   localize: Localizer,
@@ -25,8 +28,13 @@ export function renderHeader(
 
   const windUnit = getAttributeUnit(weather, "wind_speed") ?? "m/s";
 
-  const temperature = weather.attributes?.temperature;
-  const apparent = weather.attributes?.apparent_temperature;
+  const today = pickToday(dailyForecast, now);
+  const headerTemp = today?.temperature ?? weather.attributes?.temperature;
+
+  const hourlyMinMax = computeTodayMinMax(hourlyForecast, now);
+  const headerMin = hourlyMinMax.min ?? today?.templow;
+  const headerMax = hourlyMinMax.max ?? today?.temperature;
+
   const windSpeed = weather.attributes?.wind_speed;
   const windGust = weather.attributes?.wind_gust_speed;
 
@@ -63,11 +71,11 @@ export function renderHeader(
           ? html`
               <div class="header-block">
                 <div class="header-big">
-                  ${formatCompact(temperature)}<span class="header-unit-deg">°</span>
+                  ${formatCompact(headerTemp)}<span class="header-unit-deg">°</span>
                 </div>
                 <div class="header-cap">
-                  ${apparent !== undefined
-                    ? html`${localize.caption("feels_like")} ${formatCompact(apparent)}°`
+                  ${headerMin !== undefined && headerMax !== undefined
+                    ? html`${formatCompact(headerMin)}° / ${formatCompact(headerMax)}°`
                     : nothing}
                 </div>
               </div>
@@ -84,4 +92,33 @@ export function renderHeader(
       </div>
     </div>
   `;
+}
+
+function pickToday(forecast: ForecastStep[], now: Date): ForecastStep | undefined {
+  if (forecast.length === 0) return undefined;
+  const todayKey = ymd(now);
+  const match = forecast.find((step) => {
+    const d = new Date(step.datetime);
+    return !Number.isNaN(d.getTime()) && ymd(d) === todayKey;
+  });
+  return match ?? forecast[0];
+}
+
+function computeTodayMinMax(hourly: ForecastStep[], now: Date): { min?: number; max?: number } {
+  if (hourly.length === 0) return {};
+  const todayKey = ymd(now);
+  let min: number | undefined;
+  let max: number | undefined;
+  for (const step of hourly) {
+    if (typeof step.temperature !== "number") continue;
+    const d = new Date(step.datetime);
+    if (Number.isNaN(d.getTime()) || ymd(d) !== todayKey) continue;
+    if (min === undefined || step.temperature < min) min = step.temperature;
+    if (max === undefined || step.temperature > max) max = step.temperature;
+  }
+  return { min, max };
+}
+
+function ymd(d: Date): string {
+  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 }

@@ -17,12 +17,16 @@ export class YetAnotherWeatherCard extends LitElement {
 
   @state() private config!: YawcConfig;
   @state() private forecast: ForecastStep[] = [];
+  @state() private dailyForecast: ForecastStep[] = [];
+  @state() private hourlyForecast: ForecastStep[] = [];
   @state() private now: Date = new Date();
 
   private clockTimer?: number;
   private forecastTimer?: number;
   private lastForecastEntity?: string;
   private lastForecastType?: string;
+  private lastDailyEntity?: string;
+  private lastHourlyEntity?: string;
 
   public setConfig(raw: Partial<YawcConfig>): void {
     if (!raw.entity) {
@@ -79,6 +83,10 @@ export class YetAnotherWeatherCard extends LitElement {
     this.stopForecastPolling();
     this.forecastTimer = window.setInterval(() => {
       this.refreshForecast();
+      if (this.config?.header?.show_temperature) {
+        this.refreshDailyForecast();
+        this.refreshHourlyForecast();
+      }
     }, 5 * 60_000);
   }
 
@@ -96,6 +104,16 @@ export class YetAnotherWeatherCard extends LitElement {
     if (!sameEntity || !sameType || this.forecast.length === 0) {
       this.refreshForecast();
     }
+    if (this.config.header.show_temperature) {
+      const sameDaily = this.lastDailyEntity === this.config.entity;
+      if (!sameDaily || this.dailyForecast.length === 0) {
+        this.refreshDailyForecast();
+      }
+      const sameHourly = this.lastHourlyEntity === this.config.entity;
+      if (!sameHourly || this.hourlyForecast.length === 0) {
+        this.refreshHourlyForecast();
+      }
+    }
   }
 
   private async refreshForecast(): Promise<void> {
@@ -109,6 +127,28 @@ export class YetAnotherWeatherCard extends LitElement {
     this.forecast = await fetchForecast(this.hass, this.config.entity, this.config.forecast.type);
   }
 
+  private async refreshDailyForecast(): Promise<void> {
+    if (!this.hass || !this.config?.entity) return;
+    if (this.config.forecast.enabled && this.config.forecast.type === "daily") {
+      this.dailyForecast = [];
+      this.lastDailyEntity = this.config.entity;
+      return;
+    }
+    this.lastDailyEntity = this.config.entity;
+    this.dailyForecast = await fetchForecast(this.hass, this.config.entity, "daily");
+  }
+
+  private async refreshHourlyForecast(): Promise<void> {
+    if (!this.hass || !this.config?.entity) return;
+    if (this.config.forecast.enabled && this.config.forecast.type === "hourly") {
+      this.hourlyForecast = [];
+      this.lastHourlyEntity = this.config.entity;
+      return;
+    }
+    this.lastHourlyEntity = this.config.entity;
+    this.hourlyForecast = await fetchForecast(this.hass, this.config.entity, "hourly");
+  }
+
   protected render() {
     if (!this.hass || !this.config) return nothing;
 
@@ -116,10 +156,21 @@ export class YetAnotherWeatherCard extends LitElement {
     const localize = new Localizer(language);
     const { weatherEntity, sunEntity, iconStyle } = resolveEntities(this.hass, this.config);
 
+    const dailyForHeader =
+      this.config.forecast.enabled && this.config.forecast.type === "daily"
+        ? this.forecast
+        : this.dailyForecast;
+    const hourlyForHeader =
+      this.config.forecast.enabled && this.config.forecast.type === "hourly"
+        ? this.forecast
+        : this.hourlyForecast;
+
     const header = renderHeader(
       this.hass,
       weatherEntity,
       sunEntity,
+      dailyForHeader,
+      hourlyForHeader,
       this.config.header,
       iconStyle,
       localize,

@@ -46,7 +46,7 @@ export function formatDate(date: Date, hass: HomeAssistant): string {
   return new Intl.DateTimeFormat(lang, {
     weekday: "short",
     day: "numeric",
-    month: "short"
+    month: "short",
   }).format(date);
 }
 

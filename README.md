@@ -70,16 +70,22 @@ entity: weather.home
 header:
   name: My place # optional override
   show_condition: true # default true
-  show_temperature: false # default false — temp + feels-like caption pair
+  show_temperature: false # default false — today's forecast temp + min/max caption
   show_wind: false # default false — wind speed + gust caption pair
   show_clock: true # default true — time + date caption pair
 ```
 
 The location name is always shown. By default it's the weather entity's friendly
 name; set `name` to override it. The condition, temperature, wind and clock
-blocks are individually toggleable. Each "block" is a pair: the big primary
-value plus a small caption underneath (feels-like / gust / date), shown
-automatically when the data is available.
+blocks are individually toggleable. Each block is a pair: the big primary
+value plus a small caption underneath.
+
+The temperature block shows today's daily-forecast temperature as the primary
+value, with the day's min and max temperatures underneath (`min° / max°`)
+computed from the hourly forecast (the lowest and highest hourly temperature
+falling within today). If hourly data isn't available the caption falls back
+to the daily forecast's `templow` and `temperature`. Wind shows current speed
+with gust below; clock shows time with date below.
 
 ### Night icons
 
