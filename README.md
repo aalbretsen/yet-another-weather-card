@@ -22,7 +22,7 @@ The existing community cards are good but each has trade-offs: some demand a sen
 
 ### Via HACS (recommended)
 
-1. Open HACS → Frontend.
+1. Open HACS.
 2. Click the **⋮** menu → **Custom repositories**.
 3. Add `https://github.com/aalbretsen/yet-another-weather-card` with category **Dashboard**.
 4. Search for **Yet Another Weather Card** and click **Download**.
@@ -37,8 +37,9 @@ The existing community cards are good but each has trade-offs: some demand a sen
 
 ### Manual
 
-1. Run `npm install && npm run build`
-2. Copy `dist/yet-another-weather-card.js` to your `config/www/` folder
+1. Download `yet-another-weather-card.js` from the [latest release][release-url]
+   (or run `npm install && npm run build:prod` and use `dist/yet-another-weather-card.js`)
+2. Copy it to your `config/www/` folder
 3. Add the resource in **Settings → Dashboards → Resources**:
    - URL: `/local/yet-another-weather-card.js`
    - Type: JavaScript module
@@ -184,7 +185,7 @@ After `npm run build:prod`, commit `dist/yet-another-weather-card.js` to the rep
 
 ## License
 
-MIT.
+MIT — see [LICENSE](LICENSE).
 
 [hacs-badge]: https://img.shields.io/badge/HACS-Custom-orange.svg
 [hacs-url]: https://hacs.xyz

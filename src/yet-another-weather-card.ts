@@ -23,7 +23,7 @@ window.customCards.push({
   name: "Yet Another Weather Card",
   description: "Three-section weather card with configurable header, grid and forecast.",
   preview: true,
-  documentationURL: "https://github.com/your-username/yet-another-weather-card",
+  documentationURL: "https://github.com/aalbretsen/yet-another-weather-card",
 });
 
 export { YetAnotherWeatherCard };

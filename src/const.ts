@@ -1,6 +1,6 @@
 export const CARD_TYPE = "yet-another-weather-card";
 export const CARD_EDITOR_TYPE = "yet-another-weather-card-editor";
-export const CARD_VERSION = "0.1.0";
+export const CARD_VERSION = "1.0.0";
 
 export const STANDARD_VALUES = [
   "temperature",

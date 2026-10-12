@@ -44,7 +44,7 @@ export class YetAnotherWeatherCard extends LitElement {
 
   public static getStubConfig(_hass: HomeAssistant, entities: string[]): Partial<YawcConfig> {
     const weather = entities.find((e) => e.startsWith("weather."));
-    return { type: `custom:${CARD_TYPE}`, entity: weather ?? "" };
+    return { entity: weather ?? "" };
   }
 
   connectedCallback(): void {

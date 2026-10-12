@@ -1,17 +1,7 @@
 {
   "name": "yet-another-weather-card",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A configurable weather card for Home Assistant — three section layout, i18n, no charts.",
-  "main": "dist/yet-another-weather-card.js",
-  "type": "module",
-  "scripts": {
-    "build": "rollup -c rollup.config.mjs",
-    "build:prod": "NODE_ENV=production rollup -c rollup.config.mjs",
-    "watch": "rollup -c -w",
-    "lint": "eslint \"src/**/*.ts\"",
-    "format": "prettier --write \"src/**/*.{ts,json}\" \"*.{json,md,mjs}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,json}\" \"*.{json,md,mjs}\""
-  },
   "keywords": [
     "home-assistant",
     "lovelace",
@@ -19,29 +9,43 @@
     "custom-card",
     "hacs"
   ],
-  "author": "",
-  "license": "MIT",
+  "homepage": "https://github.com/aalbretsen/yet-another-weather-card#readme",
+  "bugs": {
+    "url": "https://github.com/aalbretsen/yet-another-weather-card/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/yet-another-weather-card.git"
+    "url": "git+https://github.com/aalbretsen/yet-another-weather-card.git"
   },
-  "devDependencies": {
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
-    "eslint": "^8.57.0",
-    "prettier": "^3.3.3",
-    "rollup": "^4.21.0",
-    "tslib": "^2.6.3",
-    "typescript": "^5.5.4"
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/yet-another-weather-card.js",
+  "scripts": {
+    "build": "rollup -c rollup.config.mjs",
+    "build:prod": "NODE_ENV=production rollup -c rollup.config.mjs",
+    "watch": "rollup -c rollup.config.mjs -w",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,json}\" \"*.{json,md,mjs}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,json}\" \"*.{json,md,mjs}\""
   },
   "dependencies": {
-    "lit": "^3.2.0"
+    "lit": "^3.3.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^1.0.0",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "eslint": "^10.12.0",
+    "prettier": "^3.9.10",
+    "rollup": "^4.64.5",
+    "tslib": "^2.8.1",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.71.1"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=24.0.0"
   }
 }
